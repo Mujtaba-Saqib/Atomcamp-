@@ -1,0 +1,24 @@
+Commission = [Total Sales] * 0.005
+
+Sales LY = CALCULATE([Total Sales], SAMEPERIODLASTYEAR(DateTable[Date]))
+
+Total Sales = SUM(SalesFact[Weekly_Sales])
+
+Weekly Index = DIVIDE([Total Sales], [Sales LY]) * 100
+
+YTD Commission = TOTALYTD([Commission], DateTable[Date])
+
+YTD Index = DIVIDE([YTD Sales], [YTD Sales LY]) * 100
+
+YTD Sales = TOTALYTD([Total Sales], DateTable[Date])
+
+YTD Sales LY = CALCULATE([YTD Sales], SAMEPERIODLASTYEAR(DateTable[Date]))
+
+DateTable = 
+ADDCOLUMNS(
+    CALENDAR(DATE(2010,1,1), DATE(2013,12,31)),
+    "Year", YEAR([Date]),
+    "Month", FORMAT([Date], "MMM"),
+    "WeekNum", WEEKNUM([Date]),
+    "YearWeek", "Week " & WEEKNUM([Date]) & " - " & YEAR([Date])
+)

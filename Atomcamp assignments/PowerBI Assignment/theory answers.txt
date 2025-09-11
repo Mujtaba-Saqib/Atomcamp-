@@ -1,0 +1,137 @@
+1. Tool Choice: Power BI vs Streamlit
+
+Power BI
+
+Advantages:
+
+User-friendly, executive-ready dashboards.
+
+Automatic refresh from CSV folder (All Data).
+
+Built-in DAX for YoY, YTD, indices.
+
+Mobile app for CEO (Sumera), with clean visuals.
+
+Disadvantages:
+
+Pro license costs.
+
+Limited custom analytics compared to coding.
+
+Streamlit
+
+Advantages:
+
+Open source, flexible with Python.
+
+Can integrate machine learning and advanced analytics.
+
+Disadvantages:
+
+Requires coding knowledge.
+
+Not intuitive for non-technical executives.
+
+Power BI is the best fit. Given the sales volume (45 stores × weekly POS data), Power BI handles the data easily, provides Sumera with a simple interface, and supports mobile layouts.
+
+
+
+2. Weekly vs Yearly Comparisons
+
+Weekly Comparison (Index):
+
+Formula: Index = Current Week Sales ÷ Previous Year Same Week Sales × 100.
+
+Example: Store 3, Dept 1 → if this year Week 20 = 55,000 and last year Week 20 = 50,000 → Index = 110 (growth).
+
+YTD (Year to Date):
+
+Running sum of sales from Week 1 up to current week.
+
+Compared to last year’s YTD using the same weeks.
+
+Example: YTD 2022 = 1.05M vs YTD 2021 = 1.00M → YTD Index = 105.
+
+
+
+3. All Data Folder
+
+Weekly POS exports (2011–2012) are combined into SalesFact.
+
+Dimensions are added for:
+
+DateTable (weeks, year, yearweek).
+
+StoreDim (store name, manager).
+
+DeptDim (department name).
+
+Together, they form a Star Schema (see ERD).
+
+This structure allows flexible slicing by date, store, department, and manager.
+
+
+4. Big Picture Summary
+
+Top 10 Stores / Departments → Ranked by weekly sales.
+
+Bottom Performers → Identified through the same ranking (helps highlight struggling units).
+
+Manager Commissions:
+
+0.5% of sales for Top 5 stores (weekly).
+
+Shown alongside YTD Commission to highlight long-term performance.
+
+
+
+5. Dashboard Design
+
+Big Numbers (Cards): Total Sales, Weekly Index, YTD Sales LY, Commission, Count of Stores.
+
+Tables: Store + Manager + Sales + Commission, both Weekly and YTD.
+
+Charts:
+
+Top 5 Stores (bar).
+
+Top Departments (donut).
+
+Design Principles:
+
+White theme (no dark background, no clutter).
+
+Minimalist layout, optimized for mobile view.
+
+Conditional formatting on indices (green growth, red decline).
+
+
+6. Refreshing the Dashboard
+
+Current Process:
+
+Suleman extracts weekly CSV → place in All Data folder.
+
+Analyst refreshes Power BI → updates in ~5 minutes.
+
+Challenges:
+
+Manual process is prone to delays and errors.
+
+Will not scale if number of stores or years increases.
+
+Recommendation to CEO:
+
+Move from manual CSV refresh to an automated pipeline:
+
+POS → Data Warehouse (SQL/Azure/BigQuery).
+
+Power BI scheduled refresh daily/weekly.
+
+Benefits:
+
+Saves hours of analyst time.
+
+Real-time dashboard access for Sumera.
+
+Supports scale as company grows.
